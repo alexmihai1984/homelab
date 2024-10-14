@@ -12,6 +12,8 @@ services:
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
     volumes:
       - db-data:/var/lib/mysql
+    networks:
+      - alexmihai-rocks-network
 
   wordpress:
     container_name: alexmihai-rocks-wordpress
@@ -37,9 +39,9 @@ volumes:
   wp-html: {}
 
 networks:
-  nginx-proxy:
-    external:
-      name: nginx-proxy-network
+  nginx-proxy-network:
+    name: nginx-proxy-network
+    external: true
   alexmihai-rocks-network:
     name: alexmihai-rocks-network
   
