@@ -1,0 +1,18 @@
+services:
+  nginx-proxy:
+    image: 'jc21/nginx-proxy-manager:2.10.4'
+    container_name: nginx-proxy
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    volumes:
+      - nginx-data:/data
+      - letsencrypt-data:/etc/letsencrypt
+      
+volumes:
+  nginx-data: {}
+  letsencrypt-data: {}
+
+networks:
+   nginx-proxy: {}
