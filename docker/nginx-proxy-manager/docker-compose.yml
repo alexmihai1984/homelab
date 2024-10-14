@@ -9,7 +9,13 @@ services:
     volumes:
       - nginx-data:/data
       - letsencrypt-data:/etc/letsencrypt
+    networks:
+      - nginx-proxy-network
       
 volumes:
   nginx-data: {}
   letsencrypt-data: {}
+
+networks:
+  nginx-proxy-network:
+    name: nginx-proxy-network
