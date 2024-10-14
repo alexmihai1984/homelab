@@ -1,6 +1,6 @@
 services:
   nginx-proxy:
-    image: 'jc21/nginx-proxy-manager:2.10.4'
+    image: 'jc21/nginx-proxy-manager:2.11.3'
     container_name: nginx-proxy
     ports:
       - '80:80'
