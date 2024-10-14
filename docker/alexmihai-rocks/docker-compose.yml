@@ -1,5 +1,6 @@
 services:
   database:
+    container_name: alexmihai-rocks-mariadb
     image: mariadb:11.5.2
     restart: unless-stopped
     ports:
@@ -13,13 +14,13 @@ services:
       - db-data:/var/lib/mysql
 
   wordpress:
+    container_name: alexmihai-rocks-wordpress
     depends_on:
       - database
     image: wordpress:6.6.2-apache
     restart: unless-stopped
     ports:
       - 8080:80
-    env_file: .env
     environment:
       WORDPRESS_DB_HOST: database:3306
       WORDPRESS_DB_NAME: '${MYSQL_DATABASE}'
@@ -27,7 +28,18 @@ services:
       WORDPRESS_DB_PASSWORD: '${MYSQL_PASSWORD}'
     volumes:
       - wp-html:/var/www/html
+    networks:
+      - alexmihai-rocks-network
+      - nginx-proxy-network
 
 volumes:
   db-data: {}
   wp-html: {}
+
+networks:
+  nginx-proxy:
+    external:
+      name: nginx-proxy-network
+  alexmihai-rocks-network:
+    name: alexmihai-rocks-network
+  
