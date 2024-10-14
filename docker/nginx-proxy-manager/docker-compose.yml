@@ -15,5 +15,4 @@ volumes:
   letsencrypt-data: {}
 
 networks:
-  nginx-proxy: {}
-  
+  nginx-proxy-network: {}
