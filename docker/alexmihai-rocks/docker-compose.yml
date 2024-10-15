@@ -11,7 +11,7 @@ services:
       MYSQL_USER: '${MYSQL_USER}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
     volumes:
-      - ~/docker/volumes/alexmihai-rocks/db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql
     networks:
       - alexmihai-rocks-network
 
@@ -32,10 +32,14 @@ services:
         define('WP_HOME', 'https://alexmihai.rocks');
         define('WP_SITEURL', 'https://alexmihai.rocks'); 
     volumes:
-      - ~/docker/volumes/alexmihai-rocks/wp-html:/var/www/html
+      - wp-html:/var/www/html
     networks:
       - alexmihai-rocks-network
       - nginx-proxy-network
+
+volumes:
+  db-data: {}
+  wp-html: {}
 
 networks:
   nginx-proxy-network:
