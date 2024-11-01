@@ -1,0 +1,57 @@
+services:
+  quickypass-postgresql:
+    image: postgres:17.0-alpine
+    container_name: quickypass-postgresql
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+    ports:
+      - 1432:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - quickypass-network
+
+  quickypass-backend:
+    image: docker.alexmihai.rocks/quickypass-api:1.0.0
+    container_name: quickypass-backend
+    depends_on:
+      - quickypass-postgresql
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://quickypass-postgresql:5432/$POSTGRES_DB
+      - SPRING_DATASOURCE_USERNAME=$POSTGRES_USER
+      - SPRING_DATASOURCE_PASSWORD=$POSTGRES_PASSWORD
+      - SECURITY_JWT_TOKEN_SECRET_KEY=$JWT_SECRET_KEY
+      - MAILJET_APIKEY=$MAILJET_APIKEY
+      - MAILJET_APISECRET=$MAILJET_APISECRET
+    ports:
+      - 1080:8080
+    restart: unless-stopped
+    networks:
+      - quickypass-network
+      - nginx-proxy-network
+
+  quickypass-frontend:
+    image: docker.alexmihai.rocks/quickypass-web:1.0.0
+    container_name: quickypass-frontend
+    depends_on:
+      - quickypass-backend
+    ports:
+      - 1180:80
+    restart: unless-stopped
+    networks:
+      - quickypass-network
+      - nginx-proxy-network
+
+volumes:
+  pg-data: {}
+
+networks:
+  nginx-proxy-network:
+    name: nginx-proxy-network
+    external: true
+  quickypass-network:
+    name: quickypass-network
