@@ -5,6 +5,8 @@ services:
     ports:
       - 5000:5000
     restart: unless-stopped
+    networks:
+      - registry-network
 
 networks:
   registry-network:
