@@ -11,3 +11,4 @@ services:
     volumes:
       - /home/alex/docker/cloudflare-ddns/config.json:/config.json
     restart: unless-stopped
+    
