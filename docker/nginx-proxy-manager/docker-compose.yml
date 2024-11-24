@@ -12,6 +12,23 @@ services:
       - letsencrypt-data:/etc/letsencrypt
     networks:
       - nginx-proxy-network
+    labels:
+      - docker-volume-backup.stop-during-backup=nginx-proxy
+
+  backup:
+    container_name: nginx-proxy-backup
+    image: offen/docker-volume-backup:v2
+    environment:
+      BACKUP_CRON_EXPRESSION: 10 13 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: nginx-proxy-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: nginx-proxy-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: nginx-proxy
+    volumes:
+      - db-data:/backup/db-data-backup:ro
+      - wp-html:/backup/wp-html-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/nginx-proxy:/archive
       
 volumes:
   nginx-data: {}
