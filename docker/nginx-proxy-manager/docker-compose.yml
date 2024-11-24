@@ -25,8 +25,8 @@ services:
       BACKUP_LATEST_SYMLINK: nginx-proxy-bkp-latest.tar.gz
       BACKUP_STOP_DURING_BACKUP_LABEL: nginx-proxy
     volumes:
-      - db-data:/backup/db-data-backup:ro
-      - wp-html:/backup/wp-html-backup:ro
+      - nginx-data:/backup/nginx-data-backup:ro
+      - letsencrypt-data:/backupletsencrypt-data-backup:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /media/external/ssd2/backups/nginx-proxy:/archive
       
