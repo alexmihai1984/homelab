@@ -14,6 +14,8 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - alexmihai-rocks-network
+    labels:
+      - docker-volume-backup.stop-during-backup=alexmihai-rocks
 
   wordpress:
     container_name: alexmihai-rocks-wordpress
@@ -36,6 +38,23 @@ services:
     networks:
       - alexmihai-rocks-network
       - nginx-proxy-network
+    labels:
+      - docker-volume-backup.stop-during-backup=alexmihai-rocks
+
+  backup:
+    container_name: alexmihai-rocks-backup
+    image: offen/docker-volume-backup:v2
+    environment:
+      BACKUP_CRON_EXPRESSION: 0 13 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: alexmihai-rocks-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: alexmihai-rocks-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: alexmihai-rocks
+    volumes:
+      - db-data:/backup/db-data-backup:ro
+      - wp-html:/backup/wp-html-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/alexmihai-rocks:/archive
 
 volumes:
   db-data: {}
