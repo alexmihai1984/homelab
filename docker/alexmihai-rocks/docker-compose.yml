@@ -44,6 +44,7 @@ services:
   backup:
     container_name: alexmihai-rocks-backup
     image: offen/docker-volume-backup:v2
+    restart: unless-stopped
     environment:
       BACKUP_CRON_EXPRESSION: 0 13 * * *
       BACKUP_RETENTION_DAYS: 30

@@ -18,6 +18,7 @@ services:
   backup:
     container_name: nginx-proxy-backup
     image: offen/docker-volume-backup:v2
+    restart: unless-stopped
     environment:
       BACKUP_CRON_EXPRESSION: 10 13 * * *
       BACKUP_RETENTION_DAYS: 30
@@ -26,7 +27,7 @@ services:
       BACKUP_STOP_DURING_BACKUP_LABEL: nginx-proxy
     volumes:
       - nginx-data:/backup/nginx-data-backup:ro
-      - letsencrypt-data:/backupletsencrypt-data-backup:ro
+      - letsencrypt-data:/backup/letsencrypt-data-backup:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /media/external/ssd2/backups/pi5server/nginx-proxy:/archive
       

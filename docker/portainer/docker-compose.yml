@@ -14,6 +14,7 @@ services:
   backup:
     container_name: portainer-backup
     image: offen/docker-volume-backup:v2
+    restart: unless-stopped
     environment:
       BACKUP_CRON_EXPRESSION: 20 13 * * *
       BACKUP_RETENTION_DAYS: 30

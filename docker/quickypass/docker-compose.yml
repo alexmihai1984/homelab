@@ -54,6 +54,7 @@ services:
   backup:
     container_name: quickypass-backup
     image: offen/docker-volume-backup:v2
+    restart: unless-stopped
     environment:
       BACKUP_CRON_EXPRESSION: 30 13 * * *
       BACKUP_RETENTION_DAYS: 30
