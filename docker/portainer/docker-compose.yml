@@ -23,7 +23,7 @@ services:
     volumes:
       - portainer-data:/backup/portainer-data-backup:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /media/external/ssd2/backups/portainer:/archive
+      - /media/external/ssd2/backups/pi5server/portainer:/archive
 
 volumes:
   portainer-data: {}

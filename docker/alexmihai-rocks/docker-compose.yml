@@ -54,7 +54,7 @@ services:
       - db-data:/backup/db-data-backup:ro
       - wp-html:/backup/wp-html-backup:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /media/external/ssd2/backups/alexmihai-rocks:/archive
+      - /media/external/ssd2/backups/pi5server/alexmihai-rocks:/archive
 
 volumes:
   db-data: {}

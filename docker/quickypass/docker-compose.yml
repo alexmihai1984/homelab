@@ -12,6 +12,8 @@ services:
     restart: unless-stopped
     networks:
       - quickypass-network
+    labels:
+      - docker-volume-backup.stop-during-backup=quickypass
 
   quickypass-backend:
     image: docker.alexmihai.rocks/quickypass-api:1.0.0
@@ -32,6 +34,8 @@ services:
     networks:
       - quickypass-network
       - nginx-proxy-network
+    labels:
+      - docker-volume-backup.stop-during-backup=quickypass
 
   quickypass-frontend:
     image: docker.alexmihai.rocks/quickypass-web:1.0.0
@@ -44,6 +48,22 @@ services:
     networks:
       - quickypass-network
       - nginx-proxy-network
+    labels:
+      - docker-volume-backup.stop-during-backup=quickypass
+
+  backup:
+    container_name: quickypass-backup
+    image: offen/docker-volume-backup:v2
+    environment:
+      BACKUP_CRON_EXPRESSION: 30 13 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: quickypass-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: quickypass-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: quickypass
+    volumes:
+      - pg-data:/backup/pg-data-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/pi5server/quickypass:/archive
 
 volumes:
   pg-data: {}
