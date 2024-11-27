@@ -6,7 +6,7 @@ services:
       - POSTGRES_USER=$POSTGRES_USER
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
     ports:
-      - 1432:5432
+      - 2432:5432
     volumes:
       - pg-data:/var/lib/postgresql/data
     restart: unless-stopped
@@ -33,7 +33,7 @@ services:
       - POLYGON_APIKEY=$POLYGON_APIKEY
       - ALPHAVANTAGE_APIKEY=$ALPHAVANTAGE_APIKEY
     ports:
-      - 1080:8080
+      - 2080:8080
     restart: unless-stopped
     networks:
       - napogro-network
