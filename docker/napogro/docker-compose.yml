@@ -1,0 +1,81 @@
+services:
+  napogro-postgresql:
+    image: postgres:17.0-alpine
+    container_name: napogro-postgresql
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    ports:
+      - 1432:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - napogro-network
+    labels:
+      - docker-volume-backup.stop-during-backup=napogro
+
+  napogro-backend:
+    image: docker.alexmihai.rocks/napogro-api:1.0.0
+    container_name: napogro-backend
+    depends_on:
+      - napogro-postgresql
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://napogro-postgresql:5432/$POSTGRES_USER
+      - SPRING_DATASOURCE_USERNAME=$POSTGRES_USER
+      - SPRING_DATASOURCE_PASSWORD=$POSTGRES_PASSWORD
+      - SECURITY_JWT_TOKEN_SECRET_KEY=$JWT_SECRET_KEY
+      - MAILJET_APIKEY=$MAILJET_APIKEY
+      - MAILJET_APISECRET=$MAILJET_APISECRET
+      - IEX_TOKEN=$IEX_TOKEN
+      - OPENEXCHANGERATES_APPID=$OPENEXCHANGERATES_APPID
+      - POLYGON_APIKEY=$POLYGON_APIKEY
+      - ALPHAVANTAGE_APIKEY=$ALPHAVANTAGE_APIKEY
+    ports:
+      - 1080:8080
+    restart: unless-stopped
+    networks:
+      - napogro-network
+      - nginx-proxy-network
+    labels:
+      - docker-volume-backup.stop-during-backup=napogro
+
+  napogro-frontend:
+    image: docker.alexmihai.rocks/napogro-web:1.0.0
+    container_name: napogro-frontend
+    depends_on:
+      - napogro-backend
+    ports:
+      - 1180:80
+    restart: unless-stopped
+    networks:
+      - napogro-network
+      - nginx-proxy-network
+    labels:
+      - docker-volume-backup.stop-during-backup=napogro
+
+  backup:
+    container_name: napogro-backup
+    image: offen/docker-volume-backup:v2
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: 30 13 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: napogro-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: napogro-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: napogro
+    volumes:
+      - pg-data:/backup/pg-data-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/pi5server/napogro:/archive
+
+volumes:
+  pg-data: {}
+
+networks:
+  nginx-proxy-network:
+    name: nginx-proxy-network
+    external: true
+  napogro-network:
+    name: napogro-network
