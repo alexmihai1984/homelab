@@ -47,7 +47,7 @@ services:
     depends_on:
       - napogro-backend
     ports:
-      - 1180:80
+      - 2180:80
     restart: unless-stopped
     networks:
       - napogro-network
