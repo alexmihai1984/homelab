@@ -16,7 +16,7 @@ services:
       - docker-volume-backup.stop-during-backup=napogro
 
   napogro-backend:
-    image: docker.alexmihai.rocks/napogro-api:1.0.1
+    image: docker.alexmihai.rocks/napogro-api:1.0.3
     container_name: napogro-backend
     depends_on:
       - napogro-postgresql
@@ -42,7 +42,7 @@ services:
       - docker-volume-backup.stop-during-backup=napogro
 
   napogro-frontend:
-    image: docker.alexmihai.rocks/napogro-web:1.0.1
+    image: docker.alexmihai.rocks/napogro-web:1.0.3
     container_name: napogro-frontend
     depends_on:
       - napogro-backend
