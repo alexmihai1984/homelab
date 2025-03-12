@@ -3,6 +3,8 @@ services:
     image: alexmihai1984/cloudflare-ddns:3.0.0
     container_name: cloudflare-ddns
     restart: unless-stopped
+    networks:
+      - cloudflare-ddns-network
     volumes:
       - /home/alex/docker/cloudflare-ddns/application.yml:/application.yml
 
