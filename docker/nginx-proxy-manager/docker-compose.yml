@@ -17,7 +17,7 @@ services:
 
   backup:
     container_name: nginx-proxy-backup
-    image: offen/docker-volume-backup:v2
+    image: offen/docker-volume-backup:v2.43.3
     restart: unless-stopped
     environment:
       BACKUP_CRON_EXPRESSION: 10 13 * * *
