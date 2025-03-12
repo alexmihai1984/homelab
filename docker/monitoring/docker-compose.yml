@@ -12,7 +12,7 @@ services:
     ports:
       - 9090:9090
     networks:
-      - monitoring
+      - monitoring-network
     restart: unless-stopped
 
   grafana:
@@ -23,7 +23,7 @@ services:
     volumes:
       - grafana-storage:/var/lib/grafana
     networks:
-      - monitoring
+      - monitoring-network
     restart: unless-stopped
 
   node-exporter:
@@ -36,7 +36,7 @@ services:
     ports:
       - 9100:9100
     networks:
-      - monitoring
+      - monitoring-network
     restart: unless-stopped
 
 volumes:
@@ -44,4 +44,5 @@ volumes:
   prometheus-storage: {}
 
 networks:
-  monitoring: {}
+  monitoring-network:
+    name: monitoring-network
