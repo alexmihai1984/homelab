@@ -1,6 +1,7 @@
 services:
   trilium:
     image: triliumnext/notes:v0.91.6
+    container_name: trilium
     restart: unless-stopped
     ports:
       - 3080:8080
