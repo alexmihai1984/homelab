@@ -1,0 +1,39 @@
+services:
+  trilium:
+    image: triliumnext/notes:v0.91.6
+    restart: unless-stopped
+    ports:
+      - 3080:8080
+    volumes:
+      - trilium-storage:/home/node/trilium-data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - trilium-network
+
+  backup:
+    container_name: quickypass-backup
+    image: offen/docker-volume-backup:v2.43.3
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: 40 5 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: quickypass-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: quickypass-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: quickypass
+    volumes:
+      - pg-data:/backup/pg-data-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/pi5server/quickypass:/archive
+    networks:
+      - trilium-network
+
+volumes:
+  trilium-storage: {}
+
+networks:
+  nginx-proxy-network:
+    name: nginx-proxy-network
+    external: true
+  trilium-network:
+    name: trilium-network
