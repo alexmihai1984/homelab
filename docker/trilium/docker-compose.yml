@@ -9,6 +9,7 @@ services:
       - trilium-storage:/home/node/trilium-data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+      - ~docker/trilium.config.ini:/home/node/trilium-data/config.ini:ro
     networks:
       - trilium-network
     labels:
