@@ -36,8 +36,5 @@ volumes:
   trilium-storage: {}
 
 networks:
-  nginx-proxy-network:
-    name: nginx-proxy-network
-    external: true
   trilium-network:
     name: trilium-network
