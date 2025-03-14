@@ -14,6 +14,9 @@ services:
       POSTGRES_PASSWORD: ${PG_PASS:?database password required}
       POSTGRES_USER: ${PG_USER:-authentik}
       POSTGRES_DB: ${PG_DB:-authentik}
+    networks:
+      - authentik-network
+
   redis:
     image: docker.io/library/redis:alpine
     command: --save 60 1 --loglevel warning
@@ -26,6 +29,9 @@ services:
       timeout: 3s
     volumes:
       - redis:/data
+    networks:
+      - authentik-network
+
   server:
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.2.1}
     restart: unless-stopped
@@ -47,6 +53,9 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - authentik-network
+
   worker:
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.2.1}
     restart: unless-stopped
@@ -74,9 +83,13 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - authentik-network
 
 volumes:
-  database:
-    driver: local
-  redis:
-    driver: local
+  database: {}
+  redis: {}
+
+networks:
+  authentik-network:
+    name: authentik-network
