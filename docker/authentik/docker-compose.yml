@@ -46,8 +46,8 @@ services:
       - media:/media
       - templates:/templates
     ports:
-      - 4000
-      - 4443
+      - 4000:9000
+      - 4443:9443
     depends_on:
       postgresql:
         condition: service_healthy
