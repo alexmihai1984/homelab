@@ -43,8 +43,8 @@ services:
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
     volumes:
-      - ./media:/media
-      - ./custom-templates:/templates
+      - media:/media
+      - templates:/templates
     ports:
       - "${COMPOSE_PORT_HTTP:-9000}:9000"
       - "${COMPOSE_PORT_HTTPS:-9443}:9443"
@@ -75,9 +75,9 @@ services:
     user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./media:/media
-      - ./certs:/certs
-      - ./custom-templates:/templates
+      - media:/media
+      - certs:/certs
+      - templates:/templates
     depends_on:
       postgresql:
         condition: service_healthy
@@ -89,6 +89,9 @@ services:
 volumes:
   database: {}
   redis: {}
+  media: {}
+  certs: {}
+  templates: {}
 
 networks:
   authentik-network:
