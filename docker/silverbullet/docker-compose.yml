@@ -1,0 +1,16 @@
+services:
+  silverbullet:
+    image: ghcr.io/silverbulletmd/silverbullet
+    container_name: silverbullet
+    restart: unless-stopped
+    volumes:
+      - silverbullet-data:/space
+    ports:
+      - 6000:3000
+
+volumes:
+  silverbullet-data: {}
+
+networks:
+  silverbullet-network:
+    name: silverbullet-network
