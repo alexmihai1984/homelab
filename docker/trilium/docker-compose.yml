@@ -15,22 +15,22 @@ services:
     labels:
       - docker-volume-backup.stop-during-backup=trilium
 
-  # backup:
-  #   container_name: trilium-backup
-  #   image: offen/docker-volume-backup:v2.43.3
-  #   restart: unless-stopped
-  #   environment:
-  #     BACKUP_CRON_EXPRESSION: 40 5 * * *
-  #     BACKUP_RETENTION_DAYS: 30
-  #     BACKUP_FILENAME: trilium-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
-  #     BACKUP_LATEST_SYMLINK: trilium-bkp-latest.tar.gz
-  #     BACKUP_STOP_DURING_BACKUP_LABEL: trilium
-  #   volumes:
-  #     - pg-data:/backup/pg-data-backup:ro
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - /media/external/ssd2/backups/pi5server2/trilium:/archive
-  #   networks:
-  #     - trilium-network
+  backup:
+    container_name: trilium-backup
+    image: offen/docker-volume-backup:v2.43.3
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: 5 0 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: trilium-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: trilium-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: trilium
+    volumes:
+      - trilium-storage:/backup/trilium-storage-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/pi5server2/trilium:/archive
+    networks:
+      - trilium-network
 
 volumes:
   trilium-storage: {}
