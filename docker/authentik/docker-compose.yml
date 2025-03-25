@@ -17,6 +17,8 @@ services:
       POSTGRES_DB: ${PG_DB:-authentik}
     networks:
       - authentik-network
+    labels:
+      - docker-volume-backup.stop-during-backup=authentik
 
   redis:
     image: docker.io/library/redis:alpine
@@ -67,6 +69,8 @@ services:
         condition: service_healthy
     networks:
       - authentik-network
+    labels:
+      - docker-volume-backup.stop-during-backup=authentik
 
   worker:
     image: ghcr.io/goauthentik/server:2025.2.2
@@ -98,6 +102,28 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - authentik-network
+    labels:
+      - docker-volume-backup.stop-during-backup=authentik
+
+  backup:
+    container_name: authentik-backup
+    image: offen/docker-volume-backup:v2.43.3
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: 23 22 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: authentik-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: authentik-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: authentik
+    volumes:
+      - database:/backup/database-backup:ro
+      - media:/backup/media-backup:ro
+      - certs:/backup/certs-backup:ro
+      - templates:/backup/templates-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/pi5server2/authentik:/archive
     networks:
       - authentik-network
 
