@@ -1,0 +1,20 @@
+services:
+  speedtest-tracker:
+    image: lscr.io/linuxserver/speedtest-tracker:1.3.0
+    restart: unless-stopped
+    container_name: speedtest-tracker
+    ports:
+      - 8080:80
+      - 8443:443
+    environment:
+      APP_KEY: ${APP_KEY}
+      DB_CONNECTION: sqlite
+    volumes:
+      - speedtest-data:/config
+
+volumes:
+  speedtest-data: {}
+
+networks:
+  speedtest-network:
+    name: speedtest-network
