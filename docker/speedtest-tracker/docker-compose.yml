@@ -8,6 +8,7 @@ services:
       - 8443:443
     environment:
       APP_KEY: ${APP_KEY}
+      PUBLIC_DASHBOARD: ${PUBLIC_DASHBOARD}
       DB_CONNECTION: sqlite
       SPEEDTEST_SCHEDULE: "0 */2 * * *"
       DISPLAY_TIMEZONE: Europe/Bucharest
