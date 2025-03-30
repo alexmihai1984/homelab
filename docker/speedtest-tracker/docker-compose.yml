@@ -9,6 +9,8 @@ services:
     environment:
       APP_KEY: ${APP_KEY}
       DB_CONNECTION: sqlite
+      SPEEDTEST_SCHEDULE: "0 */2 * * *"
+      DISPLAY_TIMEZONE: Europe/Bucharest
     volumes:
       - speedtest-data:/config
 
