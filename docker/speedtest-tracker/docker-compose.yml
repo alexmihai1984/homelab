@@ -16,6 +16,8 @@ services:
       ASSET_URL: https://speedtest.alexmihai.rocks
     volumes:
       - speedtest-data:/config
+    networks:
+      - speedtest-network
 
 volumes:
   speedtest-data: {}
