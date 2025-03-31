@@ -12,6 +12,8 @@ services:
       DB_CONNECTION: sqlite
       SPEEDTEST_SCHEDULE: "0 */2 * * *"
       DISPLAY_TIMEZONE: Europe/Bucharest
+      APP_URL: https://speedtest.alexmihai.rocks
+      ASSET_URL: https://speedtest.alexmihai.rocks
     volumes:
       - speedtest-data:/config
 
