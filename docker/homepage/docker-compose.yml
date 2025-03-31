@@ -3,7 +3,7 @@ services:
     image: ghcr.io/gethomepage/homepage:v1.1.1
     container_name: homepage
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: homepage.alexmihai.rocks, pi5server.local:5000, 192.168.68.108:5000 # required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts
+      HOMEPAGE_ALLOWED_HOSTS: homepage.alexmihai.rocks, pi5server2.local:5000, 192.168.68.108:5000 # required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts
       PUID: 1000 # optional, your user id
       PGID: 1003 # optional, your group id
     ports:
