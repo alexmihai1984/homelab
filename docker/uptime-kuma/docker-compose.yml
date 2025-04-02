@@ -1,0 +1,18 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    volumes:
+      - uptime-storage:/app/data
+    networks:
+      - uptime-network
+
+volumes:
+  uptime-storage: {}
+
+networks:
+  uptime-network:
+    name: uptime-network
