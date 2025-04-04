@@ -9,6 +9,7 @@ services:
       - '--web.enable-lifecycle'
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=365d'
+      - '--web.enable-admin-api'
     ports:
       - 9090:9090
     networks:
