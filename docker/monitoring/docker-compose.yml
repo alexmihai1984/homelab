@@ -3,7 +3,7 @@ services:
     image: prom/prometheus:v3.2.1
     container_name: prometheus
     volumes:
-      - ./prometheus:/etc/prometheus
+      - /home/alex/docker/monitoring/prometheus:/etc/prometheus
       - prometheus-storage:/prometheus
     command:
       - '--web.enable-lifecycle'
