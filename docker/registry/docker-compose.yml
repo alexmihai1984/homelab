@@ -2,11 +2,16 @@ services:
   registry:
     image: registry:2.8.3
     container_name: registry
+    volumes:
+      - registry-data:/var/lib/registry
     ports:
       - 5000:5000
     restart: unless-stopped
     networks:
       - registry-network
+
+volumes:
+  registry-data: {}
 
 networks:
   registry-network:
