@@ -12,10 +12,6 @@ services:
       - node-exporter-network
     restart: unless-stopped
 
-volumes:
-  grafana-storage: {}
-  prometheus-storage: {}
-
 networks:
   node-exporter-network:
     name: node-exporter-network
