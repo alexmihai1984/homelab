@@ -1,0 +1,21 @@
+services:
+  node-exporter:
+    image: prom/node-exporter:v1.9.0
+    container_name: node-exporter
+    volumes:
+      - /:/host:ro,rslave
+    command:
+      - '--path.rootfs=/host'
+    ports:
+      - 9100:9100
+    networks:
+      - node-exporter-network
+    restart: unless-stopped
+
+volumes:
+  grafana-storage: {}
+  prometheus-storage: {}
+
+networks:
+  node-exporter-network:
+    name: node-exporter-network
