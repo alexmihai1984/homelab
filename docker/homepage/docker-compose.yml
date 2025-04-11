@@ -13,3 +13,9 @@ services:
       - /home/alex/docker/homepage/homepage-background.jpg:/app/public/images/homepage-background.jpg
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
     restart: unless-stopped
+    networks:
+      - homepage-network
+
+networks:
+  homepage-network:
+    name: homepage-network
