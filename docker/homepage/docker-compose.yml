@@ -15,6 +15,25 @@ services:
     restart: unless-stopped
     networks:
       - homepage-network
+    labels:
+      - docker-volume-backup.stop-during-backup=homepage
+    
+  backup:
+    container_name: homepage-backup
+    image: offen/docker-volume-backup:v2.43.3
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: 51 21 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: homepage-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: homepage-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: homepage
+    volumes:
+      - /home/alex/docker/homepage:/backup/homepage:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/pi5server2/homepage:/archive
+    networks:
+      - homepage-network
 
 networks:
   homepage-network:
