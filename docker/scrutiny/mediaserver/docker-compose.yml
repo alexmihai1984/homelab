@@ -53,9 +53,9 @@ services:
       web:
         condition: service_healthy
     devices:
-      - "/dev/sda2"
-      - "/dev/sdb2"
-      - "/dev/sdc2"
+      - "/dev/sda"
+      - "/dev/sdb"
+      - "/dev/sdc"
     networks:
       - scrutiny-network
 

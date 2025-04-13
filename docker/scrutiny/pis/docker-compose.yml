@@ -14,9 +14,7 @@ services:
       # see: https://github.com/AnalogJ/scrutiny/blob/master/docs/TROUBLESHOOTING_DEVICE_COLLECTOR.md#collector-trigger-on-startup
       COLLECTOR_RUN_STARTUP: true
     devices:
-      - "/dev/sda2"
-      - "/dev/sdb2"
-      - "/dev/sdc2"
+      - "/dev/sda"
     networks:
       - scrutiny-network
 
