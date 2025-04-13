@@ -1,6 +1,7 @@
 services:
   influxdb:
     image: influxdb:2.2
+    container_name: scrutiny-influxdb
     ports:
       - 2086:8086
     volumes:
@@ -15,6 +16,7 @@ services:
 
   web:
     image: ghcr.io/analogj/scrutiny:master-web
+    container_name: scrutiny-web
     ports:
       - 2080:8080
     volumes:
@@ -35,6 +37,7 @@ services:
 
   collector:
     image: ghcr.io/analogj/scrutiny:master-collector
+    container_name: scrutiny-collector
     cap_add:
       - SYS_RAWIO
       - SYS_ADMIN
