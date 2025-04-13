@@ -54,7 +54,7 @@ services:
       - "/dev/sdb2"
       - "/dev/sdc2"
     networks:
-      - trilium-network
+      - scrutiny-network
 
 volumes:
   influxdb-data: {}
