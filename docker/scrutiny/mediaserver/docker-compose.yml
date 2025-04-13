@@ -46,6 +46,9 @@ services:
       # If true forces the collector to run on startup (cron will be started after the collector completes)
       # see: https://github.com/AnalogJ/scrutiny/blob/master/docs/TROUBLESHOOTING_DEVICE_COLLECTOR.md#collector-trigger-on-startup
       COLLECTOR_RUN_STARTUP: false
+    depends_on:
+      web:
+        condition: service_healthy
     devices:
       - "/dev/sda2"
       - "/dev/sdb2"
