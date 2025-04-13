@@ -16,3 +16,5 @@ services:
       - "/dev/sda2"
       - "/dev/sdb2"
       - "/dev/sdc2"
+    networks:
+      - trilium-network
