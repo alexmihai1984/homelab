@@ -9,6 +9,25 @@ services:
       - uptime-storage:/app/data
     networks:
       - uptime-network
+    labels:
+      - docker-volume-backup.stop-during-backup=uptime
+
+  backup:
+    container_name: uptime-backup
+    image: offen/docker-volume-backup:v2.43.3
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: 17 17 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: uptime-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_LATEST_SYMLINK: uptime-bkp-latest.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: uptime
+    volumes:
+      - uptime-storage:/backup/uptime-storage-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/external/ssd2/backups/pi5server2/uptime:/archive
+    networks:
+      - uptime-network
 
 volumes:
   uptime-storage: {}
