@@ -6,6 +6,7 @@ services:
       - 2086:8086
     volumes:
       - influxdb-data:/var/lib/influxdb2
+      - influxdb-etc:/etc/influxdb2
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
       interval: 5s
@@ -59,6 +60,7 @@ services:
 
 volumes:
   influxdb-data: {}
+  influxdb-etc: {}
   scrutiny-data: {}
 
 networks:
