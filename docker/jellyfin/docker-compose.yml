@@ -8,6 +8,7 @@ services:
       - TZ=Europe/Bucharest
     volumes:
       - jellyfin-data:/config
+      - jellyfin-cache:/cache
       - /media/ssd1/media:/data/movies
     ports:
       - 8096:8096
@@ -20,6 +21,7 @@ services:
 
 volumes:
   jellyfin-data: {}
+  jellyfin-cache: {}
 
 networks:
   jellyfin-network:
