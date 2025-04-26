@@ -1,0 +1,24 @@
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    ports:
+      - 13378:80
+    volumes:
+      - /media/ssd1/media/audiobooks:/audiobooks
+      - /media/ssd1/media/podcasts:/podcasts
+      - audiobookshelf-config:/config
+      - audiobookshelf-meta:/metadata
+    environment:
+      - TZ=Europe/Bucharest
+    networks:
+      - audiobookshelf-network
+    restart: unless-stopped
+
+volumes:
+  audiobookshelf-config: {}
+  audiobookshelf-meta: {}
+
+networks:
+  audiobookshelf-network:
+    name: audiobookshelf-network
