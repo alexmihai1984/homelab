@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: scrutiny-collector
+  namespace: scrutiny
+spec:
+  selector:
+    matchLabels:
+      app: scrutiny-collector
+  template:
+    metadata:
+      labels:
+        app: scrutiny-collector
+    spec:
+      hostPID: true
+      hostNetwork: true
+      containers:
+      - name: collector
+        image: ghcr.io/analogj/scrutiny:master-collector
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - SYS_RAWIO
+              - SYS_ADMIN
+        env:
+        - name: COLLECTOR_API_ENDPOINT
+          value: "http://192.168.68.118:2080"
+        - name: COLLECTOR_HOST_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: COLLECTOR_RUN_STARTUP
+          value: "true"
+        volumeMounts:
+        - name: udev
+          mountPath: /run/udev
+          readOnly: true
+        - name: dev
+          mountPath: /dev
+      volumes:
+      - name: udev
+        hostPath:
+          path: /run/udev
+          type: Directory
+      - name: dev
+        hostPath:
+          path: /dev
+          type: Directory
+      tolerations:
+      - operator: Exists
+      restartPolicy: Always
