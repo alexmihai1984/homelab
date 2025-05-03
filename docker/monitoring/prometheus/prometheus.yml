@@ -20,6 +20,15 @@ scrape_configs:
       - targets: ['192.168.68.121:9100']
         labels:
           server: pi5server3.local
+      - targets: ['192.168.68.115:9100']
+        labels:
+          server: think1.local
+      - targets: ['192.168.68.116:9100']
+        labels:
+          server: think2.local
+      - targets: ['192.168.68.114:9100']
+        labels:
+          server: think3.local
     relabel_configs:
       - source_labels: [server]
         target_label: instance
