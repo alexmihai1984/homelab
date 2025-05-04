@@ -47,6 +47,8 @@ spec:
                   key: NEXTAUTH_SECRET
             - name: NEXTAUTH_URL
               value: "https://links.alexmihai.rocks"
+            - name: NEXT_PUBLIC_DISABLE_REGISTRATION
+              value: true
           ports:
             - containerPort: 3000
           volumeMounts:
