@@ -34,7 +34,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: linkwarden-env
+                  name: linkwarden-secret
                   key: POSTGRES_PASSWORD
             - name: DATABASE_URL
               value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgres:5432/postgres
