@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: linkwarden
-          image: ghcr.io/linkwarden/linkwarden:latest
+          image: ghcr.io/linkwarden/linkwarden:v2.10.1
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
