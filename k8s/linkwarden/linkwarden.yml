@@ -1,0 +1,70 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: linkwarden-data
+  namespace: linkwarden
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkwarden
+  namespace: linkwarden
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: linkwarden
+  template:
+    metadata:
+      labels:
+        app: linkwarden
+    spec:
+      containers:
+        - name: linkwarden
+          image: ghcr.io/linkwarden/linkwarden:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-env
+                  key: POSTGRES_PASSWORD
+            - name: DATABASE_URL
+              value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgres:5432/postgres
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-secret
+                  key: NEXTAUTH_SECRET
+            - name: NEXTAUTH_URL
+              value: "https://links.alexmihai.rocks"
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: linkwarden-data
+              mountPath: /data/data
+      volumes:
+        - name: linkwarden-data
+          persistentVolumeClaim:
+            claimName: linkwarden-data
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: linkwarden
+  namespace: linkwarden
+spec:
+  selector:
+    app: linkwarden
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP
