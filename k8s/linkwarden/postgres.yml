@@ -17,6 +17,8 @@ metadata:
   name: postgres
   namespace: linkwarden
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
