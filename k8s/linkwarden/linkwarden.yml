@@ -47,6 +47,8 @@ spec:
                   key: NEXTAUTH_SECRET
             - name: NEXTAUTH_URL
               value: "https://links.alexmihai.rocks"
+            - name: NEXTAUTH_BASE_PATH
+              value: /api/v1/auth
             - name: NEXT_PUBLIC_DISABLE_REGISTRATION
               value: "true"
             - name: NEXT_PUBLIC_AUTHENTIK_ENABLED
