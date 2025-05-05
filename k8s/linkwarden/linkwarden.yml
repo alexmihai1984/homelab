@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: linkwarden
-          image: ghcr.io/linkwarden/linkwarden:v2.8.4
+          image: ghcr.io/linkwarden/linkwarden:v2.10.1
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -46,7 +46,7 @@ spec:
                   name: linkwarden-secret
                   key: NEXTAUTH_SECRET
             - name: NEXTAUTH_URL
-              value: "https://links.alexmihai.rocks"
+              value: "https://links.alexmihai.rocks/api/v1/auth"
             - name: NEXT_PUBLIC_DISABLE_REGISTRATION
               value: "true"
             - name: NEXT_PUBLIC_AUTHENTIK_ENABLED
