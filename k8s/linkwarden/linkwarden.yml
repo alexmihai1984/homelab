@@ -52,7 +52,7 @@ spec:
             - name: NEXT_PUBLIC_AUTHENTIK_ENABLED
               value: "true"
             - name: AUTHENTIK_ISSUER
-              value: https://auth.alexmihai.rocks/application/o/linkwarden/
+              value: https://auth.alexmihai.rocks/application/o/linkwarden
             - name: AUTHENTIK_CLIENT_ID
               valueFrom:
                 secretKeyRef:
