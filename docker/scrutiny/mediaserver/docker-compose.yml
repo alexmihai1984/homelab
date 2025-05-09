@@ -7,11 +7,11 @@ services:
     volumes:
       - influxdb-data:/var/lib/influxdb2
       - influxdb-etc:/etc/influxdb2
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
-    #   interval: 5s
-    #   timeout: 10s
-    #   retries: 20
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
     networks:
       - scrutiny-network
 
@@ -24,9 +24,9 @@ services:
       - scrutiny-data:/opt/scrutiny/config
     environment:
       SCRUTINY_WEB_INFLUXDB_HOST: 'influxdb'
-    # depends_on:
-    #   influxdb:
-    #     condition: service_healthy
+    depends_on:
+      influxdb:
+        condition: service_healthy
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
     #   interval: 5s
