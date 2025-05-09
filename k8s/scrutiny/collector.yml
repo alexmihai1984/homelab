@@ -50,7 +50,7 @@ spec:
       - name: sda
         hostPath:
           path: /dev/sda
-          type: CharDevice
+          type: BlockDevice
       - name: nvme0
         hostPath:
           path: /dev/nvme0
