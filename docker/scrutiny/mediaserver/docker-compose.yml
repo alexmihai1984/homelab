@@ -2,6 +2,7 @@ services:
   influxdb:
     image: influxdb:2.2
     container_name: scrutiny-influxdb
+    restart: unless-stopped
     ports:
       - 2086:8086
     volumes:
@@ -18,6 +19,7 @@ services:
   web:
     image: ghcr.io/analogj/scrutiny:master-web
     container_name: scrutiny-web
+    restart: unless-stopped
     ports:
       - 2080:8080
     volumes:
@@ -27,18 +29,19 @@ services:
     depends_on:
       influxdb:
         condition: service_healthy
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
-    #   interval: 5s
-    #   timeout: 10s
-    #   retries: 20
-    #   start_period: 10s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 10s
     networks:
       - scrutiny-network
 
   collector:
     image: ghcr.io/analogj/scrutiny:master-collector
     container_name: scrutiny-collector
+    restart: unless-stopped
     cap_add:
       - SYS_RAWIO
       - SYS_ADMIN
@@ -50,9 +53,9 @@ services:
       # If true forces the collector to run on startup (cron will be started after the collector completes)
       # see: https://github.com/AnalogJ/scrutiny/blob/master/docs/TROUBLESHOOTING_DEVICE_COLLECTOR.md#collector-trigger-on-startup
       COLLECTOR_RUN_STARTUP: true
-    # depends_on:
-    #   web:
-    #     condition: service_healthy
+    depends_on:
+      web:
+        condition: service_healthy
     devices:
       - /dev/sda
     networks:
