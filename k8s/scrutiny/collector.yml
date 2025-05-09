@@ -32,6 +32,8 @@ spec:
               fieldPath: spec.nodeName
         - name: COLLECTOR_RUN_STARTUP
           value: "true"
+        - name: COLLECTOR_DEVICE_WHITELIST
+          value: "sda,nvme0n1"
         volumeMounts:
         - name: udev
           mountPath: /run/udev
