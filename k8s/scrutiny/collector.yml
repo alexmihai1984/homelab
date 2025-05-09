@@ -32,23 +32,29 @@ spec:
               fieldPath: spec.nodeName
         - name: COLLECTOR_RUN_STARTUP
           value: "true"
-        - name: COLLECTOR_DEVICE_WHITELIST
-          value: "sda,nvme0n1"
         volumeMounts:
         - name: udev
           mountPath: /run/udev
           readOnly: true
-        - name: dev
-          mountPath: /dev
+        - name: sda
+          mountPath: /dev/sda
+          readOnly: true
+        - name: nvme0
+          mountPath: /dev/nvme0
+          readOnly: true
       volumes:
       - name: udev
         hostPath:
           path: /run/udev
           type: Directory
-      - name: dev
+      - name: sda
         hostPath:
-          path: /dev
-          type: Directory
+          path: /dev/sda
+          type: CharDevice
+      - name: nvme0
+        hostPath:
+          path: /dev/nvme0
+          type: CharDevice
       tolerations:
       - operator: Exists
       restartPolicy: Always
