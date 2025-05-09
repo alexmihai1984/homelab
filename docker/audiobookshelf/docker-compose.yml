@@ -31,7 +31,7 @@ services:
       - audiobookshelf-config:/backup/config-backup:ro
       - audiobookshelf-meta:/backup/meta-backup:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /media/external/ssd2/backups/mediaserver/audiobookshelf:/archive
+      - /media/ssd2/backups/mediaserver/audiobookshelf:/archive
     networks:
       - audiobookshelf-network
 
