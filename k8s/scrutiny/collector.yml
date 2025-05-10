@@ -17,6 +17,7 @@ spec:
       containers:
       - name: collector
         image: ghcr.io/analogj/scrutiny:master-collector
+        imagePullPolicy: Always
         securityContext:
           privileged: true
           capabilities:
@@ -36,25 +37,23 @@ spec:
         - name: udev
           mountPath: /run/udev
           readOnly: true
-        - name: sda
-          mountPath: /dev/sda
-          readOnly: true
-        - name: nvme0
-          mountPath: /dev/nvme0
-          readOnly: true
+        - name: dev
+          mountPath: /dev
+        # - name: collector-config
+        #   mountPath: /opt/scrutiny/config/collector.yaml
+        #   subPath: collector.yaml
       volumes:
       - name: udev
         hostPath:
           path: /run/udev
           type: Directory
-      - name: sda
+      - name: dev
         hostPath:
-          path: /dev/sda
-          type: BlockDevice
-      - name: nvme0
-        hostPath:
-          path: /dev/nvme0
-          type: CharDevice
+          path: /dev
+          type: Directory
+      # - name: collector-config
+      #   configMap:
+      #     name: scrutiny-collector-config
       tolerations:
       - operator: Exists
       restartPolicy: Always

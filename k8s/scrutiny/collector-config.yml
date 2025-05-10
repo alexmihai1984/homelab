@@ -1,0 +1,15 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: scrutiny-collector-config
+#   namespace: scrutiny
+# data:
+#   collector.yaml: |
+#     version: 1
+#     devices:
+#       - device: /dev/sdb
+#         ignore: true
+#       - device: /dev/sdc
+#         ignore: true
+#       - device: /dev/sdd
+#         ignore: true
