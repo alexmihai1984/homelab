@@ -1,0 +1,17 @@
+services:
+  minio:
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - /media/ssd2/minio:/data
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    networks:
+      - minio-network
+
+networks:
+  minio-network:
+    name: minio-network
