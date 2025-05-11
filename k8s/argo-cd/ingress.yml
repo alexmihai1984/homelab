@@ -1,13 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd
+  name: argocd-ingress
   namespace: argocd
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    cert-manager.io/cluster-issuer: letsencrypt-dns
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: k3s-argocd.alexmihai.rocks
+    - host: argocd.k3s.alexmihai.rocks
       http:
         paths:
           - path: /
@@ -17,3 +18,8 @@ spec:
                 name: argocd-server
                 port:
                   number: 80
+  tls:
+    - hosts:
+      - argocd.k3s.alexmihai.rocks
+      secretName: argocd-k3s-tls
+
