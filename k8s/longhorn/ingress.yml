@@ -4,16 +4,21 @@ metadata:
   name: longhorn-ingress
   namespace: longhorn-system
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    cert-manager.io/cluster-issuer: letsencrypt-dns
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: k3s-longhorn.alexmihai.rocks
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: longhorn-frontend
-                port:
-                  number: 80
+  - host: longhorn.k3s.alexmihai.rocks
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: longhorn-frontend
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - longhorn.k3s.alexmihai.rocks
+    secretName: longhorn-k3s-tls
