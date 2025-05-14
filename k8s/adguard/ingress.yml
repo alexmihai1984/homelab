@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adguard-ingress
+  namespace: adguard
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  rules:
+    - host: adguard.k3s.alexmihai.rocks
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: adguard-service
+                port:
+                  number: 3000
+  tls:
+    - hosts:
+        - adguard.k3s.alexmihai.rocks
+      secretName: adguard-k3s-tls
