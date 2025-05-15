@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexterm
+  namespace: nexterm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexterm
+  template:
+    metadata:
+      labels:
+        app: nexterm
+    spec:
+      containers:
+        - name: nexterm
+          image: germannewsmaker/nexterm:1.0.3-OPEN-PREVIEW
+          ports:
+            - containerPort: 6989
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nexterm-data

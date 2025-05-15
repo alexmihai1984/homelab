@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nexterm-ingress
+  namespace: nexterm
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  rules:
+    - host: nexterm.k3s.alexmihai.rocks
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nexterm-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - nexterm.k3s.alexmihai.rocks
+      secretName: nexterm-k3s-tls
