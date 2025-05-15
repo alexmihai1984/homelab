@@ -1,0 +1,23 @@
+services:
+  adguard:
+    image: adguard/adguardhome:v0.107.61
+    container_name: adguard
+    ports:
+      - 3000:3000
+      - 53:53/tcp
+      - 53:53/udp
+    volumes:
+      - adguard-config:/opt/adguardhome/conf
+      - adguard-data:/opt/adguardhome/work
+    networks:
+      - adguard-network
+    restart: unless-stopped
+
+
+volumes:
+  adguard-config: {}
+  adguard-data: {}
+
+networks:
+  adguard-network:
+    name: adguard-network
