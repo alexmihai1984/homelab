@@ -3,7 +3,7 @@ services:
     image: adguard/adguardhome:v0.107.61
     container_name: adguard
     ports:
-      - 3000:3000
+      - 3300:3000
       - 53:53/tcp
       - 53:53/udp
     volumes:
