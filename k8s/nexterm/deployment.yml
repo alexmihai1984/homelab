@@ -16,6 +16,12 @@ spec:
       containers:
         - name: nexterm
           image: germannewsmaker/nexterm:1.0.3-OPEN-PREVIEW
+          env:
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nexterm-secret
+                  key: ENCRYPTION_KEY
           ports:
             - containerPort: 6989
           volumeMounts:
