@@ -55,9 +55,15 @@ spec:
                   name: vikunja-secret
                   key: VIKUNJA_SERVICE_JWTSECRET
           volumeMounts:
+            - name: vikunja-config
+              mountPath: /app/vikunja/config.yml
+              subPath: config.yml
             - name: vikunja-files
               mountPath: /app/vikunja/files
       volumes:
+        - name: vikunja-config
+          secret:
+            secretName: vikunja-secret
         - name: vikunja-files
           persistentVolumeClaim:
             claimName: vikunja-files
