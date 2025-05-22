@@ -28,9 +28,14 @@ spec:
       labels:
         app: vikunja
     spec:
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: vikunja
           image: vikunja/vikunja
+          # securityContext:
+          #   runAsUser: 1000
+          #   runAsGroup: 1000
           ports:
             - containerPort: 3456
           env:
