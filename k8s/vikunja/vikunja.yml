@@ -33,9 +33,6 @@ spec:
       containers:
         - name: vikunja
           image: vikunja/vikunja
-          # securityContext:
-          #   runAsUser: 1000
-          #   runAsGroup: 1000
           ports:
             - containerPort: 3456
           env:
