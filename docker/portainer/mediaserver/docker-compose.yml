@@ -1,0 +1,37 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:2.27.6
+    container_name: portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - portainer-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - portainer-network
+    restart: unless-stopped
+    labels:
+      - docker-volume-backup.stop-during-backup=portainer
+
+  backup:
+    container_name: portainer-backup
+    image: offen/docker-volume-backup:v2.43.3
+    restart: unless-stopped
+    environment:
+      BACKUP_CRON_EXPRESSION: 40 4 * * *
+      BACKUP_RETENTION_DAYS: 30
+      BACKUP_FILENAME: portainer-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_STOP_DURING_BACKUP_LABEL: portainer
+    volumes:
+      - portainer-data:/backup/portainer-backup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /media/ssd2/backups/mediaserver/portainer:/archive
+    networks:
+      - portainer-network
+
+volumes:
+  portainer-data: {}
+
+networks:
+  portainer-network:
+    name: portainer-network
