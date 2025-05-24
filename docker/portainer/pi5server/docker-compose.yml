@@ -18,7 +18,7 @@ services:
     image: offen/docker-volume-backup:v2.43.3
     restart: unless-stopped
     environment:
-      BACKUP_CRON_EXPRESSION: 10 9 * * *
+      BACKUP_CRON_EXPRESSION: 10 4 * * *
       BACKUP_RETENTION_DAYS: 30
       BACKUP_FILENAME: portainer-bkp-%Y-%m-%dT%H-%M-%S.tar.gz
       BACKUP_LATEST_SYMLINK: portainer-bkp-latest.tar.gz
