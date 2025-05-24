@@ -18,5 +18,5 @@ services:
       - cadvisor-network
 
 networks:
-  uptime-network:
+  cadvisor-network:
     name: cadvisor-network
