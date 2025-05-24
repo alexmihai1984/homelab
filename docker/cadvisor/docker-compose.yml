@@ -1,0 +1,22 @@
+services:
+  cadvisor:
+      image: gcr.io/cadvisor/cadvisor:v0.52.1
+      container_name: cadvisor
+      restart: unless-stopped
+      privileged: true
+      devices:
+        - /dev/kmsg:/dev/kmsg
+      volumes:
+        - "/:/rootfs:ro"
+        - "/var/run:/var/run:ro"
+        - "/sys:/sys:ro"
+        - "/var/lib/docker/:/var/lib/docker:ro"
+        - "/dev/disk/:/dev/disk:ro"
+      ports:
+        - 8081:8080
+      networks:
+      - cadvisor-network
+
+networks:
+  uptime-network:
+    name: cadvisor-network
