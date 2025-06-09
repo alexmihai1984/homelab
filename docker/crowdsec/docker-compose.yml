@@ -15,7 +15,7 @@ services:
     networks:
       - crowdsec-network
     
-cloudflare-bouncer:
+  cloudflare-bouncer:
     image: crowdsecurity/cloudflare-bouncer:v0.3.0
     container_name: cloudflare-bouncer
     restart: unless-stopped
