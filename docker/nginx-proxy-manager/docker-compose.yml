@@ -9,6 +9,7 @@ services:
       - '81:81'
     volumes:
       - nginx-data:/data
+      - /home/alex/docker/nginx-proxy/logs:/data/logs
       - letsencrypt-data:/etc/letsencrypt
     networks:
       - nginx-proxy-network
