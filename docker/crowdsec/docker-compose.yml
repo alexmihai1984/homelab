@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  crowdsec:
+    image: crowdsecurity/crowdsec:v1.6.8
+    container_name: crowdsec
+    restart: unless-stopped
+    environment:
+      - COLLECTIONS=crowdsecurity/nginx
+    volumes:
+      - /home/alex/docker/crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
+      - /home/alex/docker/nginx-proxy/logs:/var/log/npm:ro
+      - crowdsec-config:/etc/crowdsec
+      - crowdsec-db:/var/lib/crowdsec/data
+    networks:
+      - crowdsec-network
+    
+cloudflare-bouncer:
+    image: crowdsecurity/cloudflare-bouncer:v0.3.0
+    container_name: cloudflare-bouncer
+    restart: unless-stopped
+    depends_on:
+      - crowdsec
+    volumes:
+      - /home/alex/docker/crowdsec/crowdsec-cloudflare-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml
+    networks:
+      - crowdsec-network
+
+volumes:
+  crowdsec-config: {}
+  crowdsec-db: {}
+
+networks:
+  crowdsec-network:
+    name: crowdsec-network
