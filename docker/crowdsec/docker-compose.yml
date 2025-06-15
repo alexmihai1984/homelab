@@ -13,9 +13,9 @@ services:
     networks:
       - crowdsec-network
     
-  crowdsec-iptables-bouncer:
+  iptables-bouncer:
     image: ghcr.io/alexmihai1984/cs-iptables-bouncer:0.0.3
-    container_name: cloudflare-bouncer
+    container_name: iptables-bouncer
     restart: unless-stopped
     network_mode: host
     cap_add:
@@ -27,7 +27,7 @@ services:
     depends_on:
       - crowdsec
     volumes:
-      - /home/alex/docker/crowdsec/crowdsec-cloudflare-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml
+      - /home/alex/docker/crowdsec/crowdsec-iptables-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-iptables-bouncer.yaml
 
 volumes:
   crowdsec-config: {}
