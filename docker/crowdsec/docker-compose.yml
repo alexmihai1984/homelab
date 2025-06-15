@@ -14,7 +14,7 @@ services:
       - crowdsec-network
     
   crowdsec-iptables-bouncer:
-    image: ghcr.io/alexmihai1984/cs-iptables-bouncer:0.0.2
+    image: ghcr.io/alexmihai1984/cs-iptables-bouncer:0.0.3
     container_name: cloudflare-bouncer
     restart: unless-stopped
     network_mode: host
