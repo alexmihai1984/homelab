@@ -28,8 +28,6 @@ services:
       - crowdsec
     volumes:
       - /home/alex/docker/crowdsec/crowdsec-cloudflare-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml
-    networks:
-      - crowdsec-network
 
 volumes:
   crowdsec-config: {}
