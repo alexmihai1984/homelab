@@ -6,6 +6,8 @@ metadata:
 spec:
   entryPoints:
     - websecure
+  tls:
+    passthrough: true
   routes:
     - match: >
         HostSNI(`alexmihai.rocks`) ||
