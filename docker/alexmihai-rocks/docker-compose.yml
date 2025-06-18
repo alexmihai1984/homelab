@@ -1,7 +1,7 @@
 services:
   database:
     container_name: alexmihai-rocks-mariadb
-    image: mariadb:11.5.2
+    image: mariadb:11.8.2
     restart: unless-stopped
     ports:
       - 3306:3306
@@ -21,7 +21,7 @@ services:
     container_name: alexmihai-rocks-wordpress
     depends_on:
       - database
-    image: wordpress:6.6.2-apache
+    image: wordpress:6.8.1-apache
     restart: unless-stopped
     ports:
       - 8080:80
