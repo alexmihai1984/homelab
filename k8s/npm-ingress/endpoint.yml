@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: npm-external
+  namespace: npm-ingress
+subsets:
+  - addresses:
+      - ip: 192.168.68.106  # pi5server.local
+    ports:
+      - port: 443
