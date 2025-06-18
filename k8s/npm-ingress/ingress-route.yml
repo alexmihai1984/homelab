@@ -15,7 +15,6 @@ spec:
         HostSNI(`auth.alexmihai.rocks`) ||
         HostSNI(`homepage.alexmihai.rocks`) ||
         HostSNI(`ittools.alexmihai.rocks`) ||
-        HostSNI(`links.alexmihai.rocks`) ||
         HostSNI(`minio.alexmihai.rocks`) ||
         HostSNI(`minio-api.alexmihai.rocks`) ||
         HostSNI(`notes.alexmihai.rocks`) ||
