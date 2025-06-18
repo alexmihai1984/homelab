@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: npm-external
+  namespace: npm-ingress
+spec:
+  type: ExternalName
+  externalName: 192.168.68.106  # pi5server.local
+  ports:
+    - port: 443
+      targetPort: 443
