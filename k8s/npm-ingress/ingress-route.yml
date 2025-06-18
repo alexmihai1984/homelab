@@ -8,6 +8,7 @@ spec:
     - websecure
   routes:
     - match: >
+        HostSNI(`alexmihai.rocks`) ||
         HostSNI(`audiobookshelf.alexmihai.rocks`) ||
         HostSNI(`auth.alexmihai.rocks`) ||
         HostSNI(`homepage.alexmihai.rocks`) ||
