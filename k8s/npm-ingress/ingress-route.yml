@@ -10,17 +10,19 @@ spec:
     passthrough: true
   routes:
     - match: >
-        HostSNI(`alexmihai.rocks`) ||
-        HostSNI(`audiobookshelf.alexmihai.rocks`) ||
-        HostSNI(`auth.alexmihai.rocks`) ||
-        HostSNI(`homepage.alexmihai.rocks`) ||
-        HostSNI(`ittools.alexmihai.rocks`) ||
-        HostSNI(`minio.alexmihai.rocks`) ||
-        HostSNI(`minio-api.alexmihai.rocks`) ||
         HostSNI(`notes.alexmihai.rocks`) ||
         HostSNI(`napogro.com`) ||
         HostSNI(`portofoolio.com`) ||
         HostSNI(`quickypass.com`)
+      services:
+        - name: npm-external
+          port: 443
+
+    - match: >
+        HostSNI(`alexmihai.rocks`) &&
+        !HostSNI(`links.alexmihai.rocks`) &&
+        !HostSNI(`todo.alexmihai.rocks`) &&
+        !HostSNI(`*.k3s.alexmihai.rocks`)
       services:
         - name: npm-external
           port: 443
