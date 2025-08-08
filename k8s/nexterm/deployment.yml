@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nexterm
-          image: germannewsmaker/nexterm:1.0.3-OPEN-PREVIEW
+          image: germannewsmaker/nexterm:1.0.5-OPEN-PREVIEW
           env:
             - name: ENCRYPTION_KEY
               valueFrom:
