@@ -1,6 +1,6 @@
 services:
   trilium:
-    image: triliumnext/trilium:v0.97.2
+    image: triliumnext/trilium:v0.98.0
     container_name: trilium
     restart: unless-stopped
     ports:
