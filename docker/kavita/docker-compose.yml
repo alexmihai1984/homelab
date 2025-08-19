@@ -1,0 +1,21 @@
+services:
+  kavita:
+    image: ghcr.io/kareadita/kavita:v0.8.7
+    container_name: kavita
+    volumes:
+        - /media/ssd1/media/ebooks/books:/books
+        - kavita-config:/kavita/config
+    environment:
+        - TZ=Europe/Bucharest
+    ports:
+        - 5000:5000
+    networks:
+      - kavita-network
+    restart: unless-stopped
+
+volumes:
+  kavita-config: {}
+
+networks:
+  kavita-network:
+    name: kavita-network
