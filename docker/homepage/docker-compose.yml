@@ -10,7 +10,7 @@ services:
       - 5000:3000
     volumes:
       - /home/alex/docker/homepage:/app/config # Make sure your local config directory exists
-      - /home/alex/docker/homepage/cactus.jpeg:/app/public/images/homepage-background.jpg
+      - /home/alex/docker/homepage/images:/app/public/images
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
     restart: unless-stopped
     networks:
