@@ -1,6 +1,6 @@
 services:
   homepage:
-    image: ghcr.io/gethomepage/homepage:v1.2.0
+    image: ghcr.io/gethomepage/homepage:v1.4.6
     container_name: homepage
     environment:
       HOMEPAGE_ALLOWED_HOSTS: homepage.alexmihai.rocks,pi5server2.local:5000,192.168.68.108:5000 # required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts
