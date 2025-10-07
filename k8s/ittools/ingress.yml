@@ -4,8 +4,7 @@ metadata:
   name: ittools-ingress
   namespace: ittools
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-dns
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
     - host: ittools.alexmihai.rocks
