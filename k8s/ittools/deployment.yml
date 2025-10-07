@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ittools
+  namespace: ittools
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ittools
+  template:
+    metadata:
+      labels:
+        app: ittools
+    spec:
+      containers:
+        - name: ittools
+          image: ghcr.io/corentinth/it-tools:2024.10.22-7ca5933
+          ports:
+            - containerPort: 80
+            
