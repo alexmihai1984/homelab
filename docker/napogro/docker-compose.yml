@@ -16,7 +16,7 @@ services:
       - docker-volume-backup.stop-during-backup=napogro
 
   napogro-backend:
-    image: docker.alexmihai.rocks/napogro-api:1.0.3
+    image: docker.alexmihai.rocks/napogro-api:1.0.4
     container_name: napogro-backend
     depends_on:
       - napogro-postgresql
@@ -32,6 +32,7 @@ services:
       - OPENEXCHANGERATES_APPID=$OPENEXCHANGERATES_APPID
       - POLYGON_APIKEY=$POLYGON_APIKEY
       - ALPHAVANTAGE_APIKEY=$ALPHAVANTAGE_APIKEY
+      - GOOGLE_CLIENTID=$GOOGLE_CLIENTID
     ports:
       - 2080:8080
     restart: unless-stopped
@@ -42,7 +43,7 @@ services:
       - docker-volume-backup.stop-during-backup=napogro
 
   napogro-frontend:
-    image: docker.alexmihai.rocks/napogro-web:1.0.3
+    image: docker.alexmihai.rocks/napogro-web:1.0.4
     container_name: napogro-frontend
     depends_on:
       - napogro-backend
