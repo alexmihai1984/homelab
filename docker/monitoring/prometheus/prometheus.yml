@@ -8,6 +8,9 @@ scrape_configs:
 
   - job_name: 'node-exporter'
     static_configs:
+      - targets: ['192.168.68.112:9100']
+        labels:
+          server: nas.local
       - targets: ['192.168.68.118:9100']
         labels:
           server: mediaserver.local
@@ -41,6 +44,9 @@ scrape_configs:
 
   - job_name: 'cadvisor'
     static_configs:
+      - targets: ['192.168.68.112:8081']
+        labels:
+          server: nas.local
       - targets: ['192.168.68.118:8081']
         labels:
           server: mediaserver.local
