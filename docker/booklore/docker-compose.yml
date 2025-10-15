@@ -41,6 +41,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD} # Use a strong password; must match DATABASE_PASSWORD defined in the booklore container
     volumes:
       - db-data:/var/lib/mysql
+      - db-config:/config
     networks:
       - booklore-network
     healthcheck:
@@ -52,6 +53,7 @@ services:
 volumes:
   booklore-data: {}
   db-data: {}
+  db-config: {}
 
 networks:
   booklore-network:
