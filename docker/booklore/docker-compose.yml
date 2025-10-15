@@ -40,7 +40,6 @@ services:
       - MYSQL_USER=booklore # Must match DATABASE_USERNAME defined in the booklore container
       - MYSQL_PASSWORD=${MYSQL_PASSWORD} # Use a strong password; must match DATABASE_PASSWORD defined in the booklore container
     volumes:
-      - db-data:/var/lib/mysql
       - db-config:/config
     networks:
       - booklore-network
