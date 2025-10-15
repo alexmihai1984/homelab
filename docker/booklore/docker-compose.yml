@@ -4,6 +4,7 @@ services:
     image: booklore/booklore:v1.6.0
     # Or the GHCR image:
     # image: ghcr.io/booklore-app/booklore:latest
+    restart: unless-stopped
     environment:
       - USER_ID=0
       - GROUP_ID=0
@@ -25,11 +26,11 @@ services:
       - /alxzfs/data/docker/booklore/bookdrop:/bookdrop   # BookDrop folder. Files placed here are automatically detected and prepared for import.
     networks:
       - booklore-network
-    restart: unless-stopped
 
   mariadb:
     container_name: mariadb
     image: lscr.io/linuxserver/mariadb:11.4.5
+    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
@@ -40,7 +41,8 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD} # Use a strong password; must match DATABASE_PASSWORD defined in the booklore container
     volumes:
       - db-data:/var/lib/mysql
-    restart: unless-stopped
+    networks:
+      - booklore-network
     healthcheck:
       test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
       interval: 5s
