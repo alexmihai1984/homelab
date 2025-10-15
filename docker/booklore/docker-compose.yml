@@ -1,0 +1,56 @@
+services:
+  booklore:
+    container_name: booklore
+    image: booklore/booklore:v1.6.0
+    # Or the GHCR image:
+    # image: ghcr.io/booklore-app/booklore:latest
+    environment:
+      - USER_ID=0
+      - GROUP_ID=0
+      - TZ=Europe/Bucharest
+      - DATABASE_URL=jdbc:mariadb://mariadb:3306/booklore
+      - DATABASE_USERNAME=booklore # Must match MYSQL_USER defined in the mariadb container
+      - DATABASE_PASSWORD=${MYSQL_PASSWORD}              
+      - BOOKLORE_PORT=6060 # Port BookLore listens on inside the container; must match container port below
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "6060:6060" # HostPort:ContainerPort → Keep both numbers the same, and also ensure the container port matches BOOKLORE_PORT, no exceptions. 
+      # All three (host port, container port, BOOKLORE_PORT) must be identical for BookLore to function properly.
+      # Example: To expose on host port 7070, set BOOKLORE_PORT=7070 and use "7070:7070". 
+    volumes:
+      - booklore-data:/app/data # Application data (settings, metadata, cache, etc.). Persist this folder to retain your library state across container restarts.
+      - /alxzfs/data/media/ebooks:/books # Primary book library folder. Mount your collection here so BookLore can access and organize your books.
+      - /alxzfs/data/docker/booklore/bookdrop:/bookdrop   # BookDrop folder. Files placed here are automatically detected and prepared for import.
+    networks:
+      - booklore-network
+    restart: unless-stopped
+
+  mariadb:
+    container_name: mariadb
+    image: lscr.io/linuxserver/mariadb:11.4.5
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Bucharest
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} # Use a strong password for the database's root user, should be different from MYSQL_PASSWORD
+      - MYSQL_DATABASE=booklore
+      - MYSQL_USER=booklore # Must match DATABASE_USERNAME defined in the booklore container
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD} # Use a strong password; must match DATABASE_PASSWORD defined in the booklore container
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  booklore-data: {}
+  db-data: {}
+
+networks:
+  booklore-network:
+    name: booklore-network
