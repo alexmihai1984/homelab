@@ -23,7 +23,7 @@ services:
     volumes:
       - booklore-data:/app/data # Application data (settings, metadata, cache, etc.). Persist this folder to retain your library state across container restarts.
       - /alxzfs/data/media/ebooks:/books # Primary book library folder. Mount your collection here so BookLore can access and organize your books.
-      - /alxzfs/data/docker/booklore/bookdrop:/bookdrop   # BookDrop folder. Files placed here are automatically detected and prepared for import.
+      - bookdrop-ignore:/bookdrop   # BookDrop folder. Files placed here are automatically detected and prepared for import.
     networks:
       - booklore-network
 
@@ -51,6 +51,7 @@ services:
 
 volumes:
   booklore-data: {}
+  bookdrop-ignore: {}
   db-data: {}
   db-config: {}
 
