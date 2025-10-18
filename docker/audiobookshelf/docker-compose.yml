@@ -7,6 +7,7 @@ services:
     volumes:
       - /alxzfs/data/media/audiobooks:/audiobooks
       - /alxzfs/data/media/podcasts:/podcasts
+      - /alxzfs/data/media/ebooks:/ebooks
       - audiobookshelf-config:/config
       - audiobookshelf-meta:/metadata
     environment:
