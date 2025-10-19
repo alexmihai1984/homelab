@@ -58,6 +58,8 @@ services:
         condition: service_healthy
     devices:
       - /dev/sda
+      - /dev/sdb
+      - /dev/sdc
     networks:
       - scrutiny-network
 
