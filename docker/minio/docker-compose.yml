@@ -9,7 +9,7 @@ services:
       - "9010:9000"
       - "9011:9001"
     volumes:
-      - /media/ssd2/minio:/data
+      - /alxzfs/data/minio:/data
     command: server /data --console-address ":9001"
     restart: unless-stopped
     networks:
