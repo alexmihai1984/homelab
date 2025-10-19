@@ -9,7 +9,7 @@ services:
     volumes:
       - jellyfin-data:/config
       - jellyfin-cache:/cache
-      - /media/ssd1/media:/data/movies
+      - /alxzfs/data/media:/data/movies
     ports:
       - 8096:8096
       - 8920:8920
