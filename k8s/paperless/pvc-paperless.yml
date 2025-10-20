@@ -1,0 +1,13 @@
+# Internal database-like app data (SQLite, state files, etc. - unused with Postgres, but still kept)
+# Keeping it small.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-data
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

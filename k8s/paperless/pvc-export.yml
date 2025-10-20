@@ -1,0 +1,13 @@
+# Output folder for exported files (ZIPs, PDFs, etc.). 
+# Will be unused, so keeping it small.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-export-pvc
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

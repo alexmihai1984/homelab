@@ -1,0 +1,13 @@
+# Actual scanned documents, thumbnails, previews.
+# Giving it plenty of room.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-media
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
