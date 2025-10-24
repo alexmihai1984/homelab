@@ -57,9 +57,9 @@ services:
       web:
         condition: service_healthy
     devices:
-      - /dev/sda
-      - /dev/sdb
-      - /dev/sdc
+      - /dev/disk/by-id/ata-KINGSTON_SUV500240G_50026B728217A87D # SSD OS
+      - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3DJYY # HDD sus
+      - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3Q29A # HDD jos
     networks:
       - scrutiny-network
 
