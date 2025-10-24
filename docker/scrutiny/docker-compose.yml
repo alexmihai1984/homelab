@@ -53,12 +53,10 @@ services:
       # If true forces the collector to run on startup (cron will be started after the collector completes)
       # see: https://github.com/AnalogJ/scrutiny/blob/master/docs/TROUBLESHOOTING_DEVICE_COLLECTOR.md#collector-trigger-on-startup
       COLLECTOR_RUN_STARTUP: true
-      COLLECTOR_DEVICE_OPTIONS: "/dev/sda=-d ata"
     depends_on:
       web:
         condition: service_healthy
     devices:
-      - /dev/disk/by-id/ata-KINGSTON_SUV500240G_50026B728217A87D:/dev/sda # SSD OS
       - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3DJYY:/dev/sdb # HDD sus
       - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3Q29A:/dev/sdc # HDD jos
     networks:
