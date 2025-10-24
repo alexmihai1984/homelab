@@ -47,7 +47,6 @@ services:
       - SYS_ADMIN
     volumes:
       - /run/udev:/run/udev:ro
-      - /dev/disk:/dev/disk:ro
     environment:
       COLLECTOR_API_ENDPOINT: 'http://web:8080'
       COLLECTOR_HOST_ID: 'nas'
@@ -57,10 +56,10 @@ services:
     depends_on:
       web:
         condition: service_healthy
-    # devices:
-    #   - /dev/disk/by-id/ata-KINGSTON_SUV500240G_50026B728217A87D # SSD OS
-    #   - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3DJYY # HDD sus
-    #   - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3Q29A # HDD jos
+    devices:
+      - /dev/disk/by-id/ata-KINGSTON_SUV500240G_50026B728217A87D:/dev/sda # SSD OS
+      - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3DJYY:/dev/sdb # HDD sus
+      - /dev/disk/by-id/ata-ST6000VN0021-1ZA17Z_Z4D3Q29A:/dev/sdc # HDD jos
     networks:
       - scrutiny-network
 
