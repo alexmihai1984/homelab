@@ -48,6 +48,8 @@ spec:
               value: "http://gotenberg:3000"
             - name: PAPERLESS_URL
               value: https://paperless.alexmihai.rocks
+            - name: PAPERLESS_PORT
+              value: "8000"
             - name: PAPERLESS_SECRET_KEY
               valueFrom:
                 secretKeyRef:
