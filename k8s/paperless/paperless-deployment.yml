@@ -65,6 +65,13 @@ spec:
                 secretKeyRef:
                   name: paperless-secret
                   key: PAPERLESS_ADMIN_PASSWORD
+            - name: PAPERLESS_APPS
+              value: "allauth.socialaccount.providers.openid_connect"
+            - name: PAPERLESS_SOCIALACCOUNT_PROVIDERS
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: PAPERLESS_SOCIALACCOUNT_PROVIDERS
           volumeMounts:
             - name: data-storage
               mountPath: /usr/src/paperless/data
