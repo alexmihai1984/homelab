@@ -15,6 +15,13 @@ spec:
       labels:
         app: redis
     spec:
+      initContainers:
+      - name: fix-permissions
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /data"]
+        volumeMounts:
+          - name: redis-storage
+            mountPath: /data
       containers:
         - name: redis
           image: docker.io/library/redis:8
