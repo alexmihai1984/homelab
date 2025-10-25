@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gotenberg
+  namespace: paperless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gotenberg
+  template:
+    metadata:
+      labels:
+        app: gotenberg
+    spec:
+      containers:
+        - name: gotenberg
+          image: docker.io/gotenberg/gotenberg:8.22
+          ports:
+            - containerPort: 3000
+          command:
+            - "gotenberg"
+            - "--chromium-disable-routes=true"
+            - "--chromium-allow-list=file:///tmp/.*"
