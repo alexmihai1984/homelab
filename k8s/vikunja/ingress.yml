@@ -16,5 +16,5 @@ spec:
               service:
                 name: vikunja
                 port:
-                  number: 
+                  number: 3456
   # tls: resolved externally by Nginx Proxy Manager
