@@ -4,6 +4,8 @@ metadata:
   name: redis
   namespace: paperless
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
