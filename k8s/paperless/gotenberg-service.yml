@@ -4,8 +4,9 @@ metadata:
   name: gotenberg
   namespace: paperless
 spec:
+  selector:
+    app: gotenberg
   ports:
     - port: 3000
       targetPort: 3000
-  selector:
-    app: gotenberg
+  type: ClusterIP

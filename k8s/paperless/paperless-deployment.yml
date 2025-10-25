@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+  namespace: paperless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless
+  template:
+    metadata:
+      labels:
+        app: paperless
+    spec:
+      containers:
+        - name: paperless
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.19.2
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PAPERLESS_REDIS
+              value: "redis://redis:6379"
+            - name: PAPERLESS_DBHOST
+              value: "postgres"
+            - name: PAPERLESS_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: POSTGRES_DB
+            - name: PAPERLESS_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: POSTGRES_USER
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: POSTGRES_PASSWORD
+            - name: PAPERLESS_TIKA_ENABLED
+              value: "1"
+            - name: PAPERLESS_TIKA_ENDPOINT
+              value: "http://tika:9998"
+            - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
+              value: "http://gotenberg:3000"
+            - name: PAPERLESS_URL
+              value: https://paperless.alexmihai.rocks
+            - name: PAPERLESS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: PAPERLESS_SECRET_KEY
+            - name: PAPERLESS_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: PAPERLESS_ADMIN_USER
+            - name: PAPERLESS_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: PAPERLESS_ADMIN_PASSWORD
+          volumeMounts:
+            - name: data-storage
+              mountPath: /usr/src/paperless/data
+            - name: media-storage
+              mountPath: /usr/src/paperless/media
+            - name: export-storage
+              mountPath: /usr/src/paperless/export
+      volumes:
+        - name: data-storage
+          persistentVolumeClaim:
+            claimName: paperless-data
+        - name: media-storage
+          persistentVolumeClaim:
+            claimName: paperless-media
+        - name: export-storage
+          persistentVolumeClaim:
+            claimName: paperless-export
