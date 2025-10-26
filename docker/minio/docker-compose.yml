@@ -9,7 +9,7 @@ services:
       - "9010:9000"
       - "9011:9001"
     volumes:
-      - /media/external/ssd2/minio:/data
+      - /srv/dev-disk-by-uuid-8d0556c2-d1a1-444d-8a92-79190f30687b/ssd2/minio:/data
     command: server /data --console-address ":9001"
     restart: unless-stopped
     networks:
