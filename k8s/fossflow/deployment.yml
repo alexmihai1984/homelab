@@ -29,3 +29,10 @@ spec:
               value: "false"
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: fossflow-storage
+              mountPath: /data/diagrams
+      volumes:
+        - name: fossflow-storage
+          persistentVolumeClaim:
+            claimName: fossflow-data
