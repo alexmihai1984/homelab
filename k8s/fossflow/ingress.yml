@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fossflow-ingress
+  namespace: fossflow
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+    - host: fossflow.alexmihai.rocks
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fossflow-service
+                port:
+                  number: 80
+  # tls: resolved externally by Nginx Proxy Manager
+  

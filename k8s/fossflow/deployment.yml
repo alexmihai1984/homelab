@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fossflow
+  namespace: fossflow
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fossflow
+  template:
+    metadata:
+      labels:
+        app: fossflow
+    spec:
+      containers:
+        - name: fossflow
+          image: stnsmith/fossflow:master-e0d45d2
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: ENABLE_SERVER_STORAGE
+              value: "true"
+            - name: STORAGE_PATH
+              value: "/data/diagrams"
+            - name: ENABLE_GIT_BACKUP
+              value: "false"
+          ports:
+            - containerPort: 80
