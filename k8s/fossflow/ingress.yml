@@ -4,10 +4,11 @@ metadata:
   name: fossflow-ingress
   namespace: fossflow
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    cert-manager.io/cluster-issuer: letsencrypt-dns
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
-    - host: fossflow.alexmihai.rocks
+    - host: fossflow.k3s.alexmihai.rocks
       http:
         paths:
           - path: /
@@ -17,5 +18,7 @@ spec:
                 name: fossflow
                 port:
                   number: 80
-  # tls: resolved externally by Nginx Proxy Manager
-  
+  tls:
+    - hosts:
+      - fossflow.k3s.alexmihai.rocks
+      secretName: fossflow-k3s-tls
