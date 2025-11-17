@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bentopdf
+  namespace: bentopdf
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bentopdf
+  template:
+    metadata:
+      labels:
+        app: bentopdf
+    spec:
+      containers:
+        - name: bentopdf
+          image: bentopdf/bentopdf:1.6.2
+          ports:
+            - containerPort: 8080
+            
