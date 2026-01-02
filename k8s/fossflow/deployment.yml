@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: fossflow
-          image: stnsmith/fossflow:master-e0d45d2
+          image: stnsmith/fossflow:master-5e6a732
           env:
             - name: NODE_ENV
               value: "production"
