@@ -2,13 +2,24 @@ services:
   adguard:
     image: adguard/adguardhome:v0.107.71
     container_name: adguard
-    network_mode: host
+    environment:
+      - ADGUARD_BIND_IP=${ADGUARD_BIND_IP}
+    ports:
+      - "3300:3000"
+      - "${ADGUARD_BIND_IP}:53:53/tcp"
+      - "${ADGUARD_BIND_IP}:53:53/udp"
     volumes:
       - adguard-config:/opt/adguardhome/conf
       - adguard-data:/opt/adguardhome/work
+    networks:
+      - adguard-network
     restart: unless-stopped
 
 
 volumes:
   adguard-config: {}
   adguard-data: {}
+
+networks:
+  adguard-network:
+    name: adguard-network
