@@ -6,8 +6,6 @@ services:
     volumes:
       - adguard-config:/opt/adguardhome/conf
       - adguard-data:/opt/adguardhome/work
-    networks:
-      - adguard-network
     restart: unless-stopped
 
 
