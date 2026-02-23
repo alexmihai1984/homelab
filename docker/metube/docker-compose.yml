@@ -2,6 +2,8 @@ services:
   metube:
     image: ghcr.io/alexta69/metube:2026.02.01
     container_name: metube
+    security_opt:
+      - apparmor=unconfined
     restart: unless-stopped
     ports:
       - 8082:8081
