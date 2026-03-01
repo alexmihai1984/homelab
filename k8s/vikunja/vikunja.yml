@@ -32,7 +32,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: vikunja
-          image: vikunja/vikunja:1.0.0-rc1
+          image: vikunja/vikunja:2.1.0
           ports:
             - containerPort: 3456
           env:
