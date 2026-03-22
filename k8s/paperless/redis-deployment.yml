@@ -20,7 +20,7 @@ spec:
         runAsUser: 999
       containers:
         - name: redis
-          image: docker.io/library/redis:8
+          image: docker.io/library/redis:8.6.1
           ports:
             - containerPort: 6379
           volumeMounts:
