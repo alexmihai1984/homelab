@@ -1,3 +1,20 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "extends": ["config:recommended"],
+
+  "packageRules": [
+    {
+      "description": "Disable private Docker registry (homelab images)",
+      "matchDatasources": ["docker"],
+      "matchPackagePrefixes": ["docker.alexmihai.rocks/"],
+      "enabled": false
+    },
+    {
+      "description": "Disable Booklore Docker image updates",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["booklore/booklore"],
+      "enabled": false
+    }
+  ]
 }
