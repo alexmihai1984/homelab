@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: cloudbeaver
-          image: dbeaver/cloudbeaver:26.0.0
+          image: dbeaver/cloudbeaver:26.0.5
           ports:
             - containerPort: 8978
           volumeMounts:
