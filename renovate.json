@@ -11,9 +11,15 @@
       "enabled": false
     },
     {
-      "description": "Disable Booklore Docker image updates",
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["booklore/booklore"],
+      "description": "Disable entire Booklore stack",
+      "matchManagers": ["docker-compose"],
+      "matchFileNames": ["docker/booklore/**"],
+      "enabled": false
+    },
+    {
+      "description": "Disable entire Crowdsec stack",
+      "matchManagers": ["docker-compose"],
+      "matchFileNames": ["docker/crowdsec/**"],
       "enabled": false
     }
   ]
