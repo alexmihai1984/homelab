@@ -3,6 +3,10 @@
 
   "extends": ["config:recommended"],
 
+  "kubernetes" :{
+    "fileMatch": ["^k8s/.+\\.ya?ml$"]
+  },
+
   "packageRules": [
     {
       "description": "Disable private Docker registry (homelab images)",
