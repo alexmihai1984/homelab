@@ -1,7 +1,7 @@
 services:
   database:
     container_name: alexmihai-rocks-mariadb
-    image: mariadb:11.8.2
+    image: mariadb:11.8.7
     restart: unless-stopped
     ports:
       - 3306:3306
