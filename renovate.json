@@ -25,6 +25,12 @@
       "matchManagers": ["docker-compose"],
       "matchFileNames": ["docker/crowdsec/**"],
       "enabled": false
+    },
+    {
+      "description": "Disable entire Kavita stack",
+      "matchManagers": ["docker-compose"],
+      "matchFileNames": ["docker/kavita/**"],
+      "enabled": false
     }
   ]
 }
