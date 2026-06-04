@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
 
   "extends": ["config:recommended"],
+  "prConcurrentLimit": 50,
 
   "kubernetes" :{
     "fileMatch": ["^k8s/.+\\.ya?ml$"]
