@@ -1,6 +1,6 @@
 services:
   silverbullet:
-    image: ghcr.io/silverbulletmd/silverbullet:0.10.4
+    image: ghcr.io/silverbulletmd/silverbullet:2.8.1
     container_name: silverbullet
     restart: unless-stopped
     volumes:
