@@ -5,15 +5,19 @@
   "prConcurrentLimit": 50,
 
   "kubernetes" :{
-    "fileMatch": ["^k8s/.+\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/^k8s/.+\\.ya?ml$/"
+    ]
   },
 
   "packageRules": [
     {
       "description": "Disable private Docker registry (homelab images)",
       "matchDatasources": ["docker"],
-      "matchPackagePrefixes": ["docker.alexmihai.rocks/"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "docker.alexmihai.rocks/{/,}**"
+      ]
     },
     {
       "description": "Disable entire Booklore stack",
