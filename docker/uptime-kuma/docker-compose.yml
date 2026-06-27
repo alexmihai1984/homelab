@@ -14,7 +14,7 @@ services:
 
   backup:
     container_name: uptime-backup
-    image: offen/docker-volume-backup:v2.48.0
+    image: offen/docker-volume-backup:v2.48.2
     restart: unless-stopped
     environment:
       BACKUP_CRON_EXPRESSION: 00 4 * * *
