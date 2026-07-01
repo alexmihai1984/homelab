@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-ddns
+  namespace: cloudflare-ddns
+  labels:
+    app: cloudflare-ddns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflare-ddns
+  template:
+    metadata:
+      labels:
+        app: cloudflare-ddns
+    spec:
+      containers:
+        - name: cloudflare-ddns
+          image: alexmihai1984/cloudflare-ddns:2026.5.4
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config-volume
+              mountPath: /application.yml
+              subPath: application.yml
+      volumes:
+        - name: config-volume
+          secret:
+            secretName: cloudflare-ddns-secret
