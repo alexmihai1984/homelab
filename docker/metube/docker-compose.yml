@@ -1,6 +1,6 @@
 services:
   metube:
-    image: ghcr.io/alexta69/metube:2026.07.13
+    image: ghcr.io/alexta69/metube:2026.07.21
     container_name: metube
     security_opt:
       - apparmor=unconfined
