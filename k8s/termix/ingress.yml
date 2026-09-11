@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: termix-ingress
+  namespace: termix
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  rules:
+    - host: termix.k3s.alexmihai.rocks
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: termix
+                port:
+                  number: 80
+  tls:
+    - hosts:
+      - termix.k3s.alexmihai.rocks
+      secretName: termix-k3s-tls
