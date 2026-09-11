@@ -27,7 +27,7 @@ spec:
             - name: GUACD_HOST
               value: "localhost"
             - name: GUACD_TUNNEL_HOST
-              value: "termix"
+              value: "localhost"
             - name: GUACD_RECORDING_PATH
               value: "/termix-data/session_recordings/guacamole"
           volumeMounts:
